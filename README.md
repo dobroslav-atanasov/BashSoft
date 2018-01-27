@@ -1,7 +1,7 @@
 # BashSoft
 The BashSoft project consists of three parts
 
-## BashSoft - First Part
+## [BashSoft - First Part](https://github.com/dobroslav-atanasov/BashSoft/tree/master/BashSoft%20-%20First%20Part)
 
 1. Creating the Basic Functionality
 2. Creating the Data Structure
