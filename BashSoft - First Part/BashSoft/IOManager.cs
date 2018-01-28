@@ -1,5 +1,6 @@
 ﻿namespace BashSoft
 {
+    using System;
     using System.Collections.Generic;
     using System.IO;
 
@@ -23,16 +24,23 @@
                     break;
                 }
 
-                foreach (string file in Directory.GetFiles(currentPath))
+                try
                 {
-                    int indexOfSlash = file.LastIndexOf("\\");
-                    string fileName = file.Substring(indexOfSlash);
-                    OutputWriter.WriteMessageOnNewLine($"{new string('-', indexOfSlash)}{fileName}");
-                }
+                    foreach (string file in Directory.GetFiles(currentPath))
+                    {
+                        int indexOfSlash = file.LastIndexOf("\\");
+                        string fileName = file.Substring(indexOfSlash);
+                        OutputWriter.WriteMessageOnNewLine($"{new string('-', indexOfSlash)}{fileName}");
+                    }
 
-                foreach (string directoryPath in Directory.GetDirectories(currentPath))
+                    foreach (string directoryPath in Directory.GetDirectories(currentPath))
+                    {
+                        subFolders.Enqueue(directoryPath);
+                    }
+                }
+                catch (UnauthorizedAccessException)
                 {
-                    subFolders.Enqueue(directoryPath);
+                    OutputWriter.DisplayMessage(ExceptionMessages.UnauthorizedAccessExceptionMessage);
                 }
             }
         }
@@ -40,17 +48,31 @@
         public static void CreateDirectoryInCurrentFolder(string name)
         {
             string path = SessionData.currentPath + "\\" + name;
-            Directory.CreateDirectory(path);
+            try
+            {
+                Directory.CreateDirectory(path);
+            }
+            catch (ArgumentException)
+            {
+                OutputWriter.DisplayMessage(ExceptionMessages.ForbiddenSymbolsContainedInName);
+            }
         }
 
         public static void ChangeCurrentDirectoryRelative(string relativePath)
         {
             if (relativePath == "..")
             {
-                string currentPath = SessionData.currentPath;
-                int indexOfLastSlash = currentPath.LastIndexOf("\\");
-                string newPath = currentPath.Substring(0, indexOfLastSlash);
-                SessionData.currentPath = newPath;
+                try
+                {
+                    string currentPath = SessionData.currentPath;
+                    int indexOfLastSlash = currentPath.LastIndexOf("\\");
+                    string newPath = currentPath.Substring(0, indexOfLastSlash);
+                    SessionData.currentPath = newPath;
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    OutputWriter.DisplayMessage(ExceptionMessages.UnableToGoHigherInPartitionHierarchy);
+                }
             }
             else
             {
