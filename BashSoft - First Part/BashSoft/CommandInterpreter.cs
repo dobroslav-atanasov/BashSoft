@@ -36,6 +36,9 @@
                 case "help":
                     TryGetHelp(input, data);
                     break;
+                case "show":
+                    TryShowWantedData(input, data);
+                    break;
                 case "filter":
                     // Filter functionality
                     break;
@@ -54,6 +57,25 @@
                 default:
                     DisplayInvalidCommandMessage(input);
                     break;
+            }
+        }
+
+        private static void TryShowWantedData(string input, string[] data)
+        {
+            if (data.Length == 2)
+            {
+                string courseName = data[1];
+                StudentsRepository.GetAllStudentsFromCourse(courseName);
+            }
+            else if (data.Length == 3)
+            {
+                string courseName = data[1];
+                string studentName = data[2];
+                StudentsRepository.GetStudentsScoresFromCourse(courseName, studentName);
+            }
+            else
+            {
+                DisplayInvalidCommandMessage(input);
             }
         }
 
