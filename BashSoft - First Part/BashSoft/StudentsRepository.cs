@@ -2,19 +2,20 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
 
     public static class StudentsRepository
     {
         public static bool isDataInitialized = false;
         private static Dictionary<string, Dictionary<string, List<int>>> studentsByCourse;
 
-        public static void InitializeData()
+        public static void InitializeData(string fileName)
         {
             if (!isDataInitialized)
             {
                 OutputWriter.WriteMessageOnNewLine("Reading data...");
                 studentsByCourse = new Dictionary<string, Dictionary<string, List<int>>>();
-                ReadData();
+                ReadData(fileName);
             }
             else
             {
@@ -22,27 +23,38 @@
             }
         }
 
-        private static void ReadData()
+        private static void ReadData(string fileName)
         {
-            string input = Console.ReadLine();
-            while (!string.IsNullOrEmpty(input))
+            string path = SessionData.currentPath + "\\" + fileName;
+            if (File.Exists(path))
             {
-                string[] inputParts = input.Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries);
-                string course = inputParts[0];
-                string student = inputParts[1];
-                int mark = int.Parse(inputParts[2]);
+                string[] allInputLines = File.ReadAllLines(path);
 
-                if (!studentsByCourse.ContainsKey(course))
+                for (int i = 0; i < allInputLines.Length; i++)
                 {
-                    studentsByCourse[course] = new Dictionary<string, List<int>>();
-                }
-                if (!studentsByCourse[course].ContainsKey(student))
-                {
-                    studentsByCourse[course][student] = new List<int>();
-                }
-                studentsByCourse[course][student].Add(mark);
+                    if (!string.IsNullOrEmpty(allInputLines[i]))
+                    {
+                        string[] inputParts = allInputLines[i].Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                        string course = inputParts[0];
+                        string student = inputParts[1];
+                        int mark = int.Parse(inputParts[2]);
 
-                input = Console.ReadLine();
+                        if (!studentsByCourse.ContainsKey(course))
+                        {
+                            studentsByCourse[course] = new Dictionary<string, List<int>>();
+                        }
+                        if (!studentsByCourse[course].ContainsKey(student))
+                        {
+                            studentsByCourse[course][student] = new List<int>();
+                        }
+                        studentsByCourse[course][student].Add(mark);
+                    }
+                }
+            }
+            else
+            {
+                OutputWriter.DisplayMessage(ExceptionMessages.InvalidPath);
+                return;
             }
 
             isDataInitialized = true;

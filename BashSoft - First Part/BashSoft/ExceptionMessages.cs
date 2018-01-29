@@ -26,5 +26,7 @@
 
         public const string UnableToGoHigherInPartitionHierarchy =
             "It is not possible to go higher in the hierarchy of the partition.";
+
+        public const string UnableToParseNumber = "The sequence you've written is not a valid number.";
     }
 }
