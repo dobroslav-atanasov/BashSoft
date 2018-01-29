@@ -1,14 +1,16 @@
-﻿namespace BashSoft
+﻿namespace BashSoft.IO
 {
     using System;
     using System.Diagnostics;
+    using Repository;
     using SimpleJudge;
+    using StaticData;
 
     public static class CommandInterpreter
     {
         public static void InterpredCommand(string input)
         {
-            string[] data = input.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] data = input.Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries);
             string command = data[0];
             switch (command)
             {
@@ -40,23 +42,112 @@
                     TryShowWantedData(input, data);
                     break;
                 case "filter":
-                    // Filter functionality
+                    TryFilterAndTake(input, data);
                     break;
                 case "order":
-                    // Order functionality
+                    TryOrderAndTake(input, data);
                     break;
-                case "decOrder":
-                    // DecOrder functionality
-                    break;
-                case "download":
-                    // Download functionality
-                    break;
-                case "downloadAsynch":
-                    // DownloadAsynch functionality
-                    break;
+                //case "download":
+                //    Download functionality
+                //    break;
+                //case "downloadAsynch":
+                //    DownloadAsynch functionality
+                //    break;
                 default:
                     DisplayInvalidCommandMessage(input);
                     break;
+            }
+        }
+
+        private static void TryOrderAndTake(string input, string[] data)
+        {
+            if (data.Length == 5)
+            {
+                string courseName = data[1];
+                string filter = data[2];
+                string takeCommand = data[3].ToLower();
+                string takeQuantity = data[4].ToLower();
+
+                TryParseParametersForOrderAndTake(takeCommand, takeQuantity, courseName, filter);
+            }
+            else
+            {
+                DisplayInvalidCommandMessage(input);
+            }
+        }
+
+        private static void TryParseParametersForOrderAndTake(string takeCommand, string takeQuantity,
+            string courseName, string filter)
+        {
+            if (takeCommand == "take")
+            {
+                if (takeQuantity == "all")
+                {
+                    StudentsRepository.OrderAndTake(courseName, filter);
+                }
+                else
+                {
+                    int studentsToTake;
+                    bool hasParsed = int.TryParse(takeQuantity, out studentsToTake);
+                    if (hasParsed)
+                    {
+                        StudentsRepository.OrderAndTake(courseName, filter, studentsToTake);
+                    }
+                    else
+                    {
+                        OutputWriter.DisplayMessage(ExceptionMessages.InvalidTakeQuantityParameter);
+                    }
+                }
+            }
+            else
+            {
+                OutputWriter.DisplayMessage(ExceptionMessages.InvalidTakeQuantityParameter);
+            }
+        }
+
+        private static void TryFilterAndTake(string input, string[] data)
+        {
+            if (data.Length == 5)
+            {
+                string courseName = data[1];
+                string filter = data[2];
+                string takeCommand = data[3].ToLower();
+                string takeQuantity = data[4].ToLower();
+
+                TryParseParametersForFilterAndTake(takeCommand, takeQuantity, courseName, filter);
+            }
+            else
+            {
+                DisplayInvalidCommandMessage(input);
+            }
+        }
+
+        private static void TryParseParametersForFilterAndTake(string takeCommand, string takeQuantity,
+            string courseName, string filter)
+        {
+            if (takeCommand == "take")
+            {
+                if (takeQuantity == "all")
+                {
+                    StudentsRepository.FilterAndTake(courseName, filter);
+                }
+                else
+                {
+                    int studentsToTake;
+                    bool hasParsed = int.TryParse(takeQuantity, out studentsToTake);
+                    if (hasParsed)
+                    {
+                        StudentsRepository.FilterAndTake(courseName, filter, studentsToTake);
+                    }
+                    else
+                    {
+                        OutputWriter.DisplayMessage(ExceptionMessages.InvalidTakeQuantityParameter);
+                    }
+                }
+            }
+            else
+            {
+                OutputWriter.DisplayMessage(ExceptionMessages.InvalidTakeQuantityParameter);
             }
         }
 
@@ -87,13 +178,22 @@
                 OutputWriter.WriteMessageOnNewLine(string.Format("|{0, -128}|", "make directory - mkdir: path "));
                 OutputWriter.WriteMessageOnNewLine(string.Format("|{0, -128}|", "traverse directory - ls: depth "));
                 OutputWriter.WriteMessageOnNewLine(string.Format("|{0, -128}|", "comparing files - cmp: path1 path2"));
-                OutputWriter.WriteMessageOnNewLine(string.Format("|{0, -128}|", "change directory - changeDirREl:relative path"));
-                OutputWriter.WriteMessageOnNewLine(string.Format("|{0, -128}|", "change directory - changeDir:absolute path"));
-                OutputWriter.WriteMessageOnNewLine(string.Format("|{0, -128}|", "read students data base - readDb: path"));
-                OutputWriter.WriteMessageOnNewLine(string.Format("|{0, -128}|", "filter {courseName} excelent/average/poor  take 2/5/all students - filterExcelent (the output is written on the console)"));
-                OutputWriter.WriteMessageOnNewLine(string.Format("|{0, -128}|", "order increasing students - order {courseName} ascending/descending take 20/10/all (the output is written on the console)"));
-                OutputWriter.WriteMessageOnNewLine(string.Format("|{0, -128}|", "download file - download: path of file (saved in current directory)"));
-                OutputWriter.WriteMessageOnNewLine(string.Format("|{0, -128}|", "download file asinchronously - downloadAsynch: path of file (save in the current directory)"));
+                OutputWriter.WriteMessageOnNewLine(string.Format("|{0, -128}|",
+                    "change directory - changeDirREl:relative path"));
+                OutputWriter.WriteMessageOnNewLine(string.Format("|{0, -128}|",
+                    "change directory - changeDir:absolute path"));
+                OutputWriter.WriteMessageOnNewLine(string.Format("|{0, -128}|",
+                    "read students data base - readDb: path"));
+                OutputWriter.WriteMessageOnNewLine(string.Format("|{0, -128}|",
+                    "show all students in current course - show: {courseName}"));
+                OutputWriter.WriteMessageOnNewLine(string.Format("|{0, -128}|",
+                    "filter {courseName} excelent/average/poor  take 2/5/all students - filterExcelent (the output is written on the console)"));
+                OutputWriter.WriteMessageOnNewLine(string.Format("|{0, -128}|",
+                    "order increasing students - order {courseName} ascending/descending take 20/10/all (the output is written on the console)"));
+                //OutputWriter.WriteMessageOnNewLine(string.Format("|{0, -128}|",
+                //    "download file - download: path of file (saved in current directory)"));
+                //OutputWriter.WriteMessageOnNewLine(string.Format("|{0, -128}|",
+                //    "download file asinchronously - downloadAsynch: path of file (save in the current directory)"));
                 OutputWriter.WriteMessageOnNewLine(string.Format("|{0, -128}|", "get help – help"));
                 OutputWriter.WriteMessageOnNewLine($"{new string('_', 130)}");
                 OutputWriter.WriteEmptyLine();
