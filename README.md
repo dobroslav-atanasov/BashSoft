@@ -11,7 +11,12 @@ The BashSoft project consists of three parts
 6. Functional Programming
 7. LINQ
 
-## BashSoft - Second Part
+## [BashSoft - Second Part](https://github.com/dobroslav-atanasov/BashSoft/tree/master/BashSoft%20-%20Second%20Part)
+
+1. Defining Classes and Methods
+2. Encapsulation
+3. Inheritance
+4. Polymorphism
 
 ## BashSoft - Third Part
 
