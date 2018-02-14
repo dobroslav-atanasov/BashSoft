@@ -2,12 +2,10 @@
 {
     using System;
     using System.Collections.Generic;
+    using Exceptions;
     using IO;
-    using StaticData;
-
     public class RepositoryFilter
     {
-        //public void FilterAndTake(Dictionary<string, List<int>> database, string filter, int studentsToTake)
         public void FilterAndTake(Dictionary<string, double> studentsWithMarks, string filter, int studentsToTake)
         {
             if (filter == "excellent")
@@ -24,7 +22,7 @@
             }
             else
             {
-                OutputWriter.DisplayMessage(ExceptionMessages.InvalidStudentFilter);
+                throw new InvalidStudentFilterException();
             }
         }
 

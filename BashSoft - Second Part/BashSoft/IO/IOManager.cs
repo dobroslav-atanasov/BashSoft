@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using Exceptions;
     using StaticData;
 
     public class IOManager
@@ -39,9 +40,9 @@
                         subFolders.Enqueue(directoryPath);
                     }
                 }
-                catch (UnauthorizedAccessException)
+                catch (AccessException)
                 {
-                    OutputWriter.DisplayMessage(ExceptionMessages.UnauthorizedAccessExceptionMessage);
+                    throw new AccessException();
                 }
             }
         }
@@ -53,9 +54,9 @@
             {
                 Directory.CreateDirectory(path);
             }
-            catch (ArgumentException)
+            catch (InvalidFileNameException)
             {
-                throw new ArgumentException(ExceptionMessages.ForbiddenSymbolsContainedInName);
+                throw new InvalidFileNameException();
             }
         }
 
@@ -70,9 +71,9 @@
                     string newPath = currentPath.Substring(0, indexOfLastSlash);
                     SessionData.currentPath = newPath;
                 }
-                catch (ArgumentOutOfRangeException)
+                catch (InvalidPathException)
                 {
-                    throw new ArgumentOutOfRangeException("indexOfLastSlash", ExceptionMessages.InvalidDestination);
+                    throw new InvalidPathException();
                 }
             }
             else
@@ -87,7 +88,7 @@
         {
             if (!Directory.Exists(absolutePath))
             {
-                throw new DirectoryNotFoundException(ExceptionMessages.InvalidPath);
+                throw new InvalidPathException();
             }
 
             SessionData.currentPath = absolutePath;

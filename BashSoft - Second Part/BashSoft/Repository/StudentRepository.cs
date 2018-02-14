@@ -5,6 +5,7 @@
     using System.IO;
     using System.Linq;
     using System.Text.RegularExpressions;
+    using Exceptions;
     using IO;
     using Models;
     using StaticData;
@@ -27,7 +28,7 @@
         {
             if (this.isDataInitialized)
             {
-                throw new ArgumentException(ExceptionMessages.DataNotInitializedExceptionMessage);
+                throw new DataException("Data is already initialized!");
             }
             
             OutputWriter.WriteMessageOnNewLine("Reading data...");
@@ -40,7 +41,7 @@
         {
             if (!this.isDataInitialized)
             {
-                throw new ArgumentException(ExceptionMessages.DataNotInitializedExceptionMessage);
+                throw new DataException();
             }
 
             this.courses = null;
@@ -72,8 +73,7 @@
 
                             if (scores.Any(s => s > 100 || s < 0))
                             {
-                                //OutputWriter.DisplayMessage(ExceptionMessages.InvalidScore);
-                                throw new ArgumentException(ExceptionMessages.InvalidScore);
+                                throw new InvalidScoreException();
                             }
                             if (scores.Length > Course.NumberOfTasksOnExam)
                             {
@@ -106,8 +106,7 @@
             }
             else
             {
-                OutputWriter.DisplayMessage(ExceptionMessages.InvalidPath);
-                return;
+                throw new InvalidPathException();
             }
 
             this.isDataInitialized = true;
@@ -124,14 +123,12 @@
                 }
                 else
                 {
-                    //OutputWriter.WriteMessageOnNewLine(ExceptionMessages.InexistingCourseInDataBase);
-                    throw new ArgumentException(ExceptionMessages.InexistingCourseInDataBase);
+                    OutputWriter.WriteMessageOnNewLine(ExceptionMessages.InexistingCourseInDataBase);
                 }
             }
             else
             {
-                //OutputWriter.WriteMessageOnNewLine(ExceptionMessages.DataNotInitializedExceptionMessage);
-                throw new ArgumentException(ExceptionMessages.DataNotInitializedExceptionMessage);
+                throw new DataException();
             }
             return false;
         }
@@ -144,8 +141,7 @@
             }
             else
             {
-                //OutputWriter.WriteMessageOnNewLine(ExceptionMessages.InexistingStudentInDataBase);
-                throw new ArgumentException(ExceptionMessages.InexistingStudentInDataBase);
+                OutputWriter.WriteMessageOnNewLine(ExceptionMessages.InexistingStudentInDataBase);
             }
             return false;
         }

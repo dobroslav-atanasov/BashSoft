@@ -1,11 +1,8 @@
 ﻿namespace BashSoft.Models
 {
-    using System;
     using System.Collections.Generic;
-    using System.Data;
     using System.Linq;
-    using IO;
-    using StaticData;
+    using Exceptions;
 
     public class Student
     {
@@ -27,7 +24,7 @@
             {
                 if (string.IsNullOrEmpty(value))
                 {
-                    throw new ArgumentException(nameof(this.username), ExceptionMessages.NullOrEmptyValue);
+                    throw new InvalidStringException();
                 }
                 this.username = value;
             }
@@ -47,8 +44,7 @@
         {
             if (this.enrolledCourses.ContainsKey(course.Name))
             {
-                // Change the Exception
-                throw new Exception();
+                throw new DuplicateEntryInStructureException(this.Username, course.Name);
             }
             this.enrolledCourses.Add(course.Name, course);
         }
@@ -57,14 +53,12 @@
         {
             if (!this.enrolledCourses.ContainsKey(courseName))
             {
-                // Change the Exception
-                throw new Exception();
+                throw new CourseNotFoundException();
             }
 
             if (scores.Length > Course.NumberOfTasksOnExam)
             {
-                // Change the Exception
-                throw new Exception();
+                throw new InvalidScoresCountException();
             }
 
             this.marksByCourseName.Add(courseName, this.CalculateMark(scores));

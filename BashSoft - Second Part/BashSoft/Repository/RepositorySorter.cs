@@ -2,8 +2,8 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Exceptions;
     using IO;
-    using StaticData;
 
     public class RepositorySorter
     {
@@ -24,7 +24,7 @@
             }
             else
             {
-                OutputWriter.DisplayMessage(ExceptionMessages.InvalidComparisonQuery);
+                throw new InvalidStudentSorterException();
             }
         }
 

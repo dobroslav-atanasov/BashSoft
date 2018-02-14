@@ -2,13 +2,11 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Data;
-    using IO;
-    using StaticData;
+    using Exceptions;
 
     public class Course
     {
-        public const int NumberOfTasksOnExam = 5;
+        public const int NumberOfTasksOnExam = 7;
         public const int MaxScoreOnExamTask = 100;
 
         private string name;
@@ -27,7 +25,7 @@
             {
                 if (string.IsNullOrEmpty(value))
                 {
-                    throw new ArgumentException(nameof(this.name), ExceptionMessages.NullOrEmptyValue);
+                    throw new InvalidStringException();
                 }
                 this.name = value;
             }
@@ -42,8 +40,7 @@
         {
             if (this.studentsByName.ContainsKey(student.Username))
             {
-                // Change the Exception
-                throw new Exception();
+                throw new DuplicateEntryInStructureException(student.Username, this.Name);
             }
             this.studentsByName.Add(student.Username, student);
         }
