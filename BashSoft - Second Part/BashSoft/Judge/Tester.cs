@@ -24,9 +24,9 @@
                 this.PrintOutput(mismatches, hasMismatch, mismatchPath);
                 OutputWriter.WriteMessageOnNewLine("Files read!");
             }
-            catch (FileNotFoundException)
+            catch (IOException ioException)
             {
-                OutputWriter.DisplayMessage(ExceptionMessages.InvalidPath);
+                OutputWriter.DisplayMessage(ioException.Message);
             }
         }
 
@@ -39,15 +39,7 @@
                     OutputWriter.WriteMessageOnNewLine(line);
                 }
 
-                try
-                {
-                    File.WriteAllLines(mismatchPath, mismatches);
-                }
-                catch (DirectoryNotFoundException)
-                {
-                    OutputWriter.DisplayMessage(ExceptionMessages.InvalidPath);
-                }
-
+                File.WriteAllLines(mismatchPath, mismatches);
                 return;
             }
 
@@ -89,7 +81,6 @@
                 }
                 mismatches[i] = output;
             }
-
             return mismatches;
         }
 

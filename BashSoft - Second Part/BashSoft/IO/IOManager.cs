@@ -55,7 +55,7 @@
             }
             catch (ArgumentException)
             {
-                OutputWriter.DisplayMessage(ExceptionMessages.ForbiddenSymbolsContainedInName);
+                throw new ArgumentException(ExceptionMessages.ForbiddenSymbolsContainedInName);
             }
         }
 
@@ -72,14 +72,14 @@
                 }
                 catch (ArgumentOutOfRangeException)
                 {
-                    OutputWriter.DisplayMessage(ExceptionMessages.UnableToGoHigherInPartitionHierarchy);
+                    throw new ArgumentOutOfRangeException("indexOfLastSlash", ExceptionMessages.InvalidDestination);
                 }
             }
             else
             {
                 string currentPath = SessionData.currentPath;
                 currentPath += $"\\{relativePath}";
-                ChangeCurrentDirectoryAbsolute(currentPath);
+                this.ChangeCurrentDirectoryAbsolute(currentPath);
             }
         }
 
@@ -87,8 +87,7 @@
         {
             if (!Directory.Exists(absolutePath))
             {
-                OutputWriter.DisplayMessage(ExceptionMessages.InvalidPath);
-                return;
+                throw new DirectoryNotFoundException(ExceptionMessages.InvalidPath);
             }
 
             SessionData.currentPath = absolutePath;

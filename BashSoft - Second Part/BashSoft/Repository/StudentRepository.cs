@@ -27,8 +27,7 @@
         {
             if (this.isDataInitialized)
             {
-                OutputWriter.DisplayMessage(ExceptionMessages.DataAlreadyInitializedException);
-                return;
+                throw new ArgumentException(ExceptionMessages.DataNotInitializedExceptionMessage);
             }
             
             OutputWriter.WriteMessageOnNewLine("Reading data...");
@@ -41,7 +40,7 @@
         {
             if (!this.isDataInitialized)
             {
-                OutputWriter.DisplayMessage(ExceptionMessages.DataNotInitializedExceptionMessage);
+                throw new ArgumentException(ExceptionMessages.DataNotInitializedExceptionMessage);
             }
 
             this.courses = null;
@@ -73,7 +72,8 @@
 
                             if (scores.Any(s => s > 100 || s < 0))
                             {
-                                OutputWriter.DisplayMessage(ExceptionMessages.InvalidScore);
+                                //OutputWriter.DisplayMessage(ExceptionMessages.InvalidScore);
+                                throw new ArgumentException(ExceptionMessages.InvalidScore);
                             }
                             if (scores.Length > Course.NumberOfTasksOnExam)
                             {
@@ -124,25 +124,28 @@
                 }
                 else
                 {
-                    OutputWriter.WriteMessageOnNewLine(ExceptionMessages.InexistingCourseInDataBase);
+                    //OutputWriter.WriteMessageOnNewLine(ExceptionMessages.InexistingCourseInDataBase);
+                    throw new ArgumentException(ExceptionMessages.InexistingCourseInDataBase);
                 }
             }
             else
             {
-                OutputWriter.WriteMessageOnNewLine(ExceptionMessages.DataNotInitializedExceptionMessage);
+                //OutputWriter.WriteMessageOnNewLine(ExceptionMessages.DataNotInitializedExceptionMessage);
+                throw new ArgumentException(ExceptionMessages.DataNotInitializedExceptionMessage);
             }
             return false;
         }
 
         private bool IsQueryForStudentPossible(string courseName, string studentName)
         {
-            if (this.IsQueryForCoursePossible(courseName) && this.courses[courseName].studentsByName.ContainsKey(studentName))
+            if (this.IsQueryForCoursePossible(courseName) && this.courses[courseName].StudentsByName.ContainsKey(studentName))
             {
                 return true;
             }
             else
             {
-                OutputWriter.WriteMessageOnNewLine(ExceptionMessages.InexistingStudentInDataBase);
+                //OutputWriter.WriteMessageOnNewLine(ExceptionMessages.InexistingStudentInDataBase);
+                throw new ArgumentException(ExceptionMessages.InexistingStudentInDataBase);
             }
             return false;
         }
@@ -152,7 +155,7 @@
             if (this.IsQueryForCoursePossible(courseName))
             {
                 OutputWriter.WriteMessageOnNewLine($"{courseName}:");
-                foreach (KeyValuePair<string, Student> studentMarksEntry in this.courses[courseName].studentsByName)
+                foreach (KeyValuePair<string, Student> studentMarksEntry in this.courses[courseName].StudentsByName)
                 {
                     this.GetStudentsScoresFromCourse(courseName, studentMarksEntry.Key);
                 }
@@ -163,7 +166,7 @@
         {
             if (this.IsQueryForStudentPossible(courseName, studentName))
             {
-                OutputWriter.PrintStudent(new KeyValuePair<string, double>(studentName, this.courses[courseName].studentsByName[studentName].marksByCourseName[courseName]));
+                OutputWriter.PrintStudent(new KeyValuePair<string, double>(studentName, this.courses[courseName].StudentsByName[studentName].MarksByCourseName[courseName]));
             }
         }
 
@@ -173,11 +176,11 @@
             {
                 if (studentsToTake == null)
                 {
-                    studentsToTake = this.courses[courseName].studentsByName.Count;
+                    studentsToTake = this.courses[courseName].StudentsByName.Count;
                 }
 
-                Dictionary<string, double> marks = this.courses[courseName].studentsByName
-                    .ToDictionary(st => st.Key, st => st.Value.marksByCourseName[courseName]);
+                Dictionary<string, double> marks = this.courses[courseName].StudentsByName
+                    .ToDictionary(st => st.Key, st => st.Value.MarksByCourseName[courseName]);
 
                 this.filter.FilterAndTake(marks, givenFilter, studentsToTake.Value);
             }
@@ -189,11 +192,11 @@
             {
                 if (studentsToTake == null)
                 {
-                    studentsToTake = this.courses[courseName].studentsByName.Count;
+                    studentsToTake = this.courses[courseName].StudentsByName.Count;
                 }
 
-                Dictionary<string, double> marks = this.courses[courseName].studentsByName
-                    .ToDictionary(st => st.Key, st => st.Value.marksByCourseName[courseName]);
+                Dictionary<string, double> marks = this.courses[courseName].StudentsByName
+                    .ToDictionary(st => st.Key, st => st.Value.MarksByCourseName[courseName]);
 
                 this.sorter.OrderAndTake(marks, comparison, studentsToTake.Value);
             }

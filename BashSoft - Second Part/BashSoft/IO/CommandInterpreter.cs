@@ -2,6 +2,7 @@
 {
     using System;
     using System.Diagnostics;
+    using System.IO;
     using Repository;
     using Judge;
     using StaticData;
@@ -21,45 +22,70 @@
 
         public void InterpredCommand(string input)
         {
-            string[] data = input.Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries);
-            string command = data[0];
+            string[] data = input.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            string command = data[0].ToLower();
+
+            try
+            {
+                this.ParseCommand(input, command, data);
+            }
+            catch (DirectoryNotFoundException dnfe)
+            {
+                OutputWriter.DisplayMessage(dnfe.Message);
+            }
+            catch (ArgumentOutOfRangeException aore)
+            {
+                OutputWriter.DisplayMessage(aore.Message);
+            }
+            catch (ArgumentException ae)
+            {
+                OutputWriter.DisplayMessage(ae.Message);
+            }
+            catch (Exception ex)
+            {
+                OutputWriter.DisplayMessage(ex.Message);
+            }
+        }
+
+        private void ParseCommand(string input, string command, string[] data)
+        {
             switch (command)
             {
                 case "open":
-                    TryOpenFile(input, data);
+                    this.TryOpenFile(input, data);
                     break;
                 case "mkdir":
-                    TryCreateDirectory(input, data);
+                    this.TryCreateDirectory(input, data);
                     break;
                 case "ls":
-                    TryTraverseFolders(input, data);
+                    this.TryTraverseFolders(input, data);
                     break;
                 case "cmp":
-                    TyrCompareFiles(input, data);
+                    this.TyrCompareFiles(input, data);
                     break;
-                case "cdRel":
-                    TryChangePathRelatively(input, data);
+                case "cdrel":
+                    this.TryChangePathRelatively(input, data);
                     break;
-                case "cdAbs":
-                    TryChangePathAbsolute(input, data);
+                case "cdabs":
+                    this.TryChangePathAbsolute(input, data);
                     break;
-                case "readDb":
-                    TryReadDatabaseFromFile(input, data);
+                case "readdb":
+                    this.TryReadDatabaseFromFile(input, data);
                     break;
                 case "help":
-                    TryGetHelp(input, data);
+                    this.TryGetHelp(input, data);
                     break;
                 case "show":
-                    TryShowWantedData(input, data);
+                    this.TryShowWantedData(input, data);
                     break;
                 case "filter":
-                    TryFilterAndTake(input, data);
+                    this.TryFilterAndTake(input, data);
                     break;
                 case "order":
-                    TryOrderAndTake(input, data);
+                    this.TryOrderAndTake(input, data);
                     break;
                 case "dropdb":
-                    TryDropDatabase(input, data);
+                    this.TryDropDatabase(input, data);
                     break;
                 //case "download":
                 //    Download functionality
@@ -68,7 +94,7 @@
                 //    DownloadAsynch functionality
                 //    break;
                 default:
-                    DisplayInvalidCommandMessage(input);
+                    this.DisplayInvalidCommandMessage(input);
                     break;
             }
         }
@@ -94,11 +120,11 @@
                 string takeCommand = data[3].ToLower();
                 string takeQuantity = data[4].ToLower();
 
-                TryParseParametersForOrderAndTake(takeCommand, takeQuantity, courseName, filter);
+                this.TryParseParametersForOrderAndTake(takeCommand, takeQuantity, courseName, filter);
             }
             else
             {
-                DisplayInvalidCommandMessage(input);
+                this.DisplayInvalidCommandMessage(input);
             }
         }
 
@@ -140,11 +166,11 @@
                 string takeCommand = data[3].ToLower();
                 string takeQuantity = data[4].ToLower();
 
-                TryParseParametersForFilterAndTake(takeCommand, takeQuantity, courseName, filter);
+                this.TryParseParametersForFilterAndTake(takeCommand, takeQuantity, courseName, filter);
             }
             else
             {
-                DisplayInvalidCommandMessage(input);
+                this.DisplayInvalidCommandMessage(input);
             }
         }
 
@@ -192,7 +218,7 @@
             }
             else
             {
-                DisplayInvalidCommandMessage(input);
+                this.DisplayInvalidCommandMessage(input);
             }
         }
 
@@ -226,7 +252,7 @@
             }
             else
             {
-                DisplayInvalidCommandMessage(input);
+                this.DisplayInvalidCommandMessage(input);
             }
         }
 
@@ -239,7 +265,7 @@
             }
             else
             {
-                DisplayInvalidCommandMessage(input);
+                this.DisplayInvalidCommandMessage(input);
             }
         }
 
@@ -252,7 +278,7 @@
             }
             else
             {
-                DisplayInvalidCommandMessage(input);
+                this.DisplayInvalidCommandMessage(input);
             }
         }
 
@@ -265,7 +291,7 @@
             }
             else
             {
-                DisplayInvalidCommandMessage(input);
+                this.DisplayInvalidCommandMessage(input);
             }
         }
 
@@ -280,7 +306,7 @@
             }
             else
             {
-                DisplayInvalidCommandMessage(input);
+                this.DisplayInvalidCommandMessage(input);
             }
         }
 
@@ -305,7 +331,7 @@
             }
             else
             {
-                DisplayInvalidCommandMessage(input);
+                this.DisplayInvalidCommandMessage(input);
             }
         }
 
@@ -318,7 +344,7 @@
             }
             else
             {
-                DisplayInvalidCommandMessage(input);
+                this.DisplayInvalidCommandMessage(input);
             }
         }
 
@@ -331,7 +357,7 @@
             }
             else
             {
-                DisplayInvalidCommandMessage(input);
+                this.DisplayInvalidCommandMessage(input);
             }
         }
 

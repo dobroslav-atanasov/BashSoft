@@ -7,7 +7,6 @@
 
     public class RepositorySorter
     {
-        //public void OrderAndTake(Dictionary<string, List<int>> database, string comparison, int studentsToTake)
         public void OrderAndTake(Dictionary<string, double> studentsWithMarks, string comparison, int studentsToTake)
         {
             comparison = comparison.ToLower();
