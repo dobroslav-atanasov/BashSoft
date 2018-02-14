@@ -28,9 +28,41 @@
             Console.ForegroundColor = currentColor;
         }
 
+        public static void DisplaySuccessfulMessage(string message)
+        {
+            ConsoleColor currentColor = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine(message);
+            Console.ForegroundColor = currentColor;
+        }
+
+        public static void DisplayWaitingMessage(string message)
+        {
+            ConsoleColor currentColor = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine(message);
+            Console.ForegroundColor = currentColor;
+        }
+
+        public static void DisplayHelpMessage(string message)
+        {
+            ConsoleColor currentColor = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine(message);
+            Console.ForegroundColor = currentColor;
+        }
+
+        public static void DisplayCourseMessage(string message)
+        {
+            ConsoleColor currentColor = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine(message);
+            Console.ForegroundColor = currentColor;
+        }
+
         public static void PrintStudent(KeyValuePair<string, double> student)
         {
-            OutputWriter.WriteMessageOnNewLine($"{student.Key} - {student.Value}");
+            OutputWriter.WriteMessageOnNewLine($"{student.Key} - {student.Value:F2}");
         }
     }
 }

@@ -11,7 +11,7 @@
         {
             try
             {
-                OutputWriter.WriteMessageOnNewLine("Reading files...");
+                OutputWriter.DisplayWaitingMessage("Reading files...");
                 string mismatchPath = this.GetMismatchPath(expectedOutputPath);
 
                 string[] actualOutputLines = File.ReadAllLines(userOutputPath);
@@ -22,7 +22,7 @@
                     this.GetLinesWithPossibleMismatches(actualOutputLines, expectedOutputLines, out hasMismatch);
 
                 this.PrintOutput(mismatches, hasMismatch, mismatchPath);
-                OutputWriter.WriteMessageOnNewLine("Files read!");
+                OutputWriter.DisplaySuccessfulMessage("Files read!");
             }
             catch (IOException ioException)
             {
@@ -43,17 +43,16 @@
                 return;
             }
 
-            OutputWriter.WriteMessageOnNewLine("Files are identical. There are no mismatches.");
+            OutputWriter.DisplaySuccessfulMessage("Files are identical. There are no mismatches.");
         }
 
-        private string[] GetLinesWithPossibleMismatches(string[] actualOutputLines, string[] expectedOutputLines,
-            out bool hasMismatch)
+        private string[] GetLinesWithPossibleMismatches(string[] actualOutputLines, string[] expectedOutputLines, out bool hasMismatch)
         {
             hasMismatch = false;
             string output = string.Empty;
 
             string[] mismatches = new string[actualOutputLines.Length];
-            OutputWriter.WriteMessageOnNewLine("Comparing files...");
+            OutputWriter.DisplayWaitingMessage("Comparing files...");
 
             int minOutputLines = actualOutputLines.Length;
             if (actualOutputLines.Length != expectedOutputLines.Length)

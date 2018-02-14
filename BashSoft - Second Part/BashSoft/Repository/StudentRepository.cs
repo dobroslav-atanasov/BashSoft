@@ -31,10 +31,10 @@
                 throw new DataException("Data is already initialized!");
             }
             
-            OutputWriter.WriteMessageOnNewLine("Reading data...");
+            OutputWriter.DisplayWaitingMessage("Reading data...");
             this.courses = new Dictionary<string, Course>();
             this.students = new Dictionary<string, Student>();
-            ReadData(fileName);
+            this.ReadData(fileName);
         }
 
         public void UnloadData()
@@ -110,7 +110,7 @@
             }
 
             this.isDataInitialized = true;
-            OutputWriter.WriteMessageOnNewLine("Data read!");
+            OutputWriter.DisplaySuccessfulMessage("Data read!");
         }
 
         private bool IsQueryForCoursePossible(string courseName)
@@ -150,7 +150,7 @@
         {
             if (this.IsQueryForCoursePossible(courseName))
             {
-                OutputWriter.WriteMessageOnNewLine($"{courseName}:");
+                OutputWriter.DisplayCourseMessage($"{courseName}:");
                 foreach (KeyValuePair<string, Student> studentMarksEntry in this.courses[courseName].StudentsByName)
                 {
                     this.GetStudentsScoresFromCourse(courseName, studentMarksEntry.Key);
