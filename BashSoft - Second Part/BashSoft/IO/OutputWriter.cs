@@ -60,6 +60,14 @@
             Console.ForegroundColor = currentColor;
         }
 
+        public static void DisplayStudentMessage(string message)
+        {
+            ConsoleColor currentColor = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine(message);
+            Console.ForegroundColor = currentColor;
+        }
+
         public static void PrintStudent(KeyValuePair<string, double> student)
         {
             OutputWriter.WriteMessageOnNewLine($"{student.Key} - {student.Value:F2}");

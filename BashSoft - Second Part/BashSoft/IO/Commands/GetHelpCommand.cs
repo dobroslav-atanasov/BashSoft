@@ -32,6 +32,8 @@
             OutputWriter.DisplayHelpMessage(string.Format("|{0, -108}|", "          change directory absolute - cdabs {absolute path}"));
             OutputWriter.DisplayHelpMessage(string.Format("|{0, -108}|", "            read students data base - readdb {path}"));
             OutputWriter.DisplayHelpMessage(string.Format("|{0, -108}|", "show all students in current course - show {courseName}"));
+            OutputWriter.DisplayHelpMessage(string.Format("|{0, -108}|", "     show all courses order by name - showac"));
+            OutputWriter.DisplayHelpMessage(string.Format("|{0, -108}|", "   show all students order by score - showas"));
             OutputWriter.DisplayHelpMessage(string.Format("|{0, -108}|", "          filter students by course - filter {courseName} {excelent/average/poor} {take} {2/5/all}"));
             OutputWriter.DisplayHelpMessage(string.Format("|{0, -108}|", "           order students in course - order {courseName} {ascending/descending} {take} {20/10/all}"));
             OutputWriter.DisplayHelpMessage(string.Format("|{0, -108}|", "                      drop database - dropdb"));

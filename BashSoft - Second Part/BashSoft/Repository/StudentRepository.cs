@@ -197,5 +197,42 @@
                 this.sorter.OrderAndTake(marks, comparison, studentsToTake.Value);
             }
         }
+
+        public void GetAllCourses()
+        {
+            if (!this.isDataInitialized)
+            {
+                throw new DataException();
+            }
+
+            OutputWriter.DisplayCourseMessage($"Number of courses: {this.courses.Count}");
+            foreach (KeyValuePair<string, Course> course in this.courses.OrderBy(c => c.Value.Name))
+            {
+                OutputWriter.DisplayCourseMessage(course.Value.Name);
+            }
+        }
+
+        public void GetAllStudents()
+        {
+            if (!this.isDataInitialized)
+            {
+                throw new DataException();
+            }
+
+            Dictionary<string, Student> allStudents = new Dictionary<string, Student>();
+            foreach (KeyValuePair<string, Course> course in this.courses)
+            {
+                foreach (KeyValuePair<string, Student> student in course.Value.StudentsByName)
+                {
+                    allStudents.Add(student.Key, student.Value);
+                }
+            }
+
+            OutputWriter.DisplayCourseMessage($"Number of students: {allStudents.Count}");
+            foreach (KeyValuePair<string, Student> student in allStudents.OrderByDescending(s => s.Value.MarksByCourseName.Average(m => m.Value)))
+            {
+                OutputWriter.DisplayStudentMessage($"{student.Value.Username} - {student.Value.MarksByCourseName.Average(s => s.Value):F2}" );
+            }
+        }
     }
 }
