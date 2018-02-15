@@ -15,7 +15,7 @@
         {
             if (this.Data.Length != 1)
             {
-                throw new InvalidCommandException();
+                throw new InvalidCommandException(this.Input);
             }
 
             this.Repository.GetAllStudents();
