@@ -47,12 +47,6 @@
                 case "order":
                     TryOrderAndTake(input, data);
                     break;
-                //case "download":
-                //    Download functionality
-                //    break;
-                //case "downloadAsynch":
-                //    DownloadAsynch functionality
-                //    break;
                 default:
                     DisplayInvalidCommandMessage(input);
                     break;
@@ -301,7 +295,10 @@
             if (data.Length == 2)
             {
                 string fileName = data[1];
-                Process.Start(SessionData.currentPath + "\\" + fileName);
+                Process process = new Process();
+                process.StartInfo.UseShellExecute = true;
+                process.StartInfo.FileName = SessionData.currentPath + "\\" + fileName;
+                process.Start();
             }
             else
             {
