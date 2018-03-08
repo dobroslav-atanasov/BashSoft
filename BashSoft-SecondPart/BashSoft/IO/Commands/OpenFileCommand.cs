@@ -21,7 +21,10 @@
             }
 
             string fileName = this.Data[1];
-            Process.Start(SessionData.currentPath + "\\" + fileName);
+            Process process = new Process();
+            process.StartInfo.UseShellExecute = true;
+            process.StartInfo.FileName = SessionData.currentPath + "\\" + fileName;
+            process.Start();
         }
     }
 }
