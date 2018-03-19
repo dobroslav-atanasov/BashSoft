@@ -18,6 +18,6 @@ The BashSoft project consists of three parts
 3. Inheritance
 4. Polymorphism
 
-## BashSoft - Third Part
+## [BashSoft - Third Part](https://github.com/dobroslav-atanasov/BashSoft/tree/master/BashSoft-ThirdPart)
 
 ## [Resources](https://github.com/dobroslav-atanasov/BashSoft/tree/master/Resources)
