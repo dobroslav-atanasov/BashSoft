@@ -2,10 +2,11 @@
 {
     using System.Collections.Generic;
     using System.IO;
+    using Contracts;
     using Exceptions;
     using StaticData;
 
-    public class IOManager
+    public class IOManager : IDirectoryManager
     {
         public void TraverseFolder(int depth)
         {

@@ -2,31 +2,32 @@
 {
     using System;
     using Commands;
+    using Contracts;
     using Exceptions;
     using Repository;
     using Judge;
 
-    public class CommandInterpreter
+    public class CommandInterpreter : IInterpreter
     {
-        private Tester tester;
-        private StudentRepository repository;
-        private IOManager manager;
+        private IContentComparer tester;
+        private IDatabase repository;
+        private IDirectoryManager manager;
 
-        public CommandInterpreter(Tester tester, StudentRepository repository, IOManager manager)
+        public CommandInterpreter(IContentComparer tester, IDatabase repository, IDirectoryManager manager)
         {
             this.tester = tester;
             this.repository = repository;
             this.manager = manager;
         }
 
-        public void InterpredCommand(string input)
+        public void InterpretCommand(string input)
         {
             string[] data = input.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
             string commandName = data[0].ToLower();
 
             try
             {
-                Command command = this.ParseCommand(input, commandName, data);
+                IExecutable command = this.ParseCommand(input, commandName, data);
                 command.Execute();
             }
             catch (Exception ex)
@@ -35,7 +36,7 @@
             }
         }
 
-        private Command ParseCommand(string input, string command, string[] data)
+        private IExecutable ParseCommand(string input, string command, string[] data)
         {
             switch (command)
             {

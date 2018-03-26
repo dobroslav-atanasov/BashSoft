@@ -2,18 +2,19 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Contracts;
     using Exceptions;
 
-    public class Student
+    public class Student : IStudent
     {
         private string username;
-        private Dictionary<string, Course> enrolledCourses;
+        private Dictionary<string, ICourse> enrolledCourses;
         private Dictionary<string, double> marksByCourseName;
         
         public Student(string username)
         {
             this.Username = username;
-            this.enrolledCourses = new Dictionary<string, Course>();
+            this.enrolledCourses = new Dictionary<string, ICourse>();
             this.marksByCourseName = new Dictionary<string, double>();
         }
 
@@ -30,7 +31,7 @@
             }
         }
 
-        public IReadOnlyDictionary<string, Course> EnrolledCourses
+        public IReadOnlyDictionary<string, ICourse> EnrolledCourses
         {
             get { return this.enrolledCourses; }
         }
@@ -40,7 +41,7 @@
             get { return this.marksByCourseName; }
         }
 
-        public void EnrollInCourse(Course course)
+        public void EnrollInCourse(ICourse course)
         {
             if (this.enrolledCourses.ContainsKey(course.Name))
             {

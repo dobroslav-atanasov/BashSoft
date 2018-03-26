@@ -5,20 +5,21 @@
     using System.IO;
     using System.Linq;
     using System.Text.RegularExpressions;
+    using Contracts;
     using Exceptions;
     using IO;
     using Models;
     using StaticData;
 
-    public class StudentRepository
+    public class StudentRepository : IDatabase
     {
         private bool isDataInitialized;
-        private Dictionary<string, Course> courses;
-        private Dictionary<string, Student> students;
-        private RepositoryFilter filter;
-        private RepositorySorter sorter;
+        private Dictionary<string, ICourse> courses;
+        private Dictionary<string, IStudent> students;
+        private IDataFilter filter;
+        private IDataSorter sorter;
 
-        public StudentRepository(RepositoryFilter filter, RepositorySorter sorter)
+        public StudentRepository(IDataFilter filter, IDataSorter sorter)
         {
             this.filter = filter;
             this.sorter = sorter;
@@ -32,8 +33,8 @@
             }
             
             OutputWriter.DisplayWaitingMessage("Reading data...");
-            this.courses = new Dictionary<string, Course>();
-            this.students = new Dictionary<string, Student>();
+            this.courses = new Dictionary<string, ICourse>();
+            this.students = new Dictionary<string, IStudent>();
             this.ReadData(fileName);
         }
 
@@ -90,8 +91,8 @@
                                 this.courses.Add(courseName, new Course(courseName));
                             }
 
-                            Course course = this.courses[courseName];
-                            Student student = this.students[username];
+                            ICourse course = this.courses[courseName];
+                            IStudent student = this.students[username];
 
                             student.EnrollInCourse(course);
                             student.SetMarkOnCourse(courseName, scores);
@@ -151,7 +152,7 @@
             if (this.IsQueryForCoursePossible(courseName))
             {
                 OutputWriter.DisplayCourseMessage($"{courseName}:");
-                foreach (KeyValuePair<string, Student> studentMarksEntry in this.courses[courseName].StudentsByName)
+                foreach (KeyValuePair<string, IStudent> studentMarksEntry in this.courses[courseName].StudentsByName)
                 {
                     this.GetStudentsScoresFromCourse(courseName, studentMarksEntry.Key);
                 }
@@ -206,7 +207,7 @@
             }
 
             OutputWriter.DisplayCourseMessage($"Number of courses: {this.courses.Count}");
-            foreach (KeyValuePair<string, Course> course in this.courses.OrderBy(c => c.Value.Name))
+            foreach (KeyValuePair<string, ICourse> course in this.courses.OrderBy(c => c.Value.Name))
             {
                 OutputWriter.DisplayCourseMessage(course.Value.Name);
             }
@@ -219,17 +220,17 @@
                 throw new DataException();
             }
 
-            Dictionary<string, Student> allStudents = new Dictionary<string, Student>();
-            foreach (KeyValuePair<string, Course> course in this.courses)
+            Dictionary<string, IStudent> allStudents = new Dictionary<string, IStudent>();
+            foreach (KeyValuePair<string, ICourse> course in this.courses)
             {
-                foreach (KeyValuePair<string, Student> student in course.Value.StudentsByName)
+                foreach (KeyValuePair<string, IStudent> student in course.Value.StudentsByName)
                 {
                     allStudents.Add(student.Key, student.Value);
                 }
             }
 
             OutputWriter.DisplayCourseMessage($"Number of students: {allStudents.Count}");
-            foreach (KeyValuePair<string, Student> student in allStudents.OrderByDescending(s => s.Value.MarksByCourseName.Average(m => m.Value)))
+            foreach (KeyValuePair<string, IStudent> student in allStudents.OrderByDescending(s => s.Value.MarksByCourseName.Average(m => m.Value)))
             {
                 OutputWriter.DisplayStudentMessage($"{student.Value.Username} - {student.Value.MarksByCourseName.Average(s => s.Value):F2}" );
             }

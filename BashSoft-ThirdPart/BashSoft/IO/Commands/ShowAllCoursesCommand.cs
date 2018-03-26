@@ -1,6 +1,7 @@
 ﻿namespace BashSoft.IO.Commands
 {
     using System.Collections.Generic;
+    using Contracts;
     using Exceptions;
     using Judge;
     using Models;
@@ -8,7 +9,7 @@
 
     public class ShowAllCoursesCommand : Command
     {
-        public ShowAllCoursesCommand(string input, string[] data, Tester tester, StudentRepository repository, IOManager manager) 
+        public ShowAllCoursesCommand(string input, string[] data, IContentComparer tester, IDatabase repository, IDirectoryManager manager) 
             : base(input, data, tester, repository, manager)
         {
         }
