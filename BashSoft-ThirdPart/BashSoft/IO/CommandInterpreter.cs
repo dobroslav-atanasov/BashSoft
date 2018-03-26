@@ -68,6 +68,8 @@
                     return new PrintOrderedStudentsCommand(input, data, this.tester, this.repository, this.manager);
                 case "dropdb":
                     return new DropDatabaseCommand(input, data, this.tester, this.repository, this.manager);
+                case "display":
+                    return new DisplayCommand(input, data, this.tester, this.repository, this.manager);
                 default:
                     throw new InvalidCommandException(input);
             }

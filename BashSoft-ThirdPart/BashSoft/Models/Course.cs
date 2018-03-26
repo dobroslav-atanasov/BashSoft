@@ -45,5 +45,16 @@
             }
             this.studentsByName.Add(student.Username, student);
         }
+
+        public int CompareTo(ICourse other)
+        {
+            int result = this.Name.CompareTo(other.Name);
+            return result;
+        }
+
+        public override string ToString()
+        {
+            return this.Name;
+        }
     }
 }

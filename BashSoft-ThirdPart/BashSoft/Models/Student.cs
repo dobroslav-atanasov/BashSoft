@@ -71,5 +71,16 @@
             double mark = percentage * 4 + 2;
             return mark;
         }
+
+        public int CompareTo(IStudent other)
+        {
+            int result = this.Username.CompareTo(other.Username);
+            return result;
+        }
+
+        public override string ToString()
+        {
+            return this.Username;
+        }
     }
 }
