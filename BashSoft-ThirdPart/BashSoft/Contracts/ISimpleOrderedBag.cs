@@ -12,6 +12,6 @@
 
         int Size { get; }
 
-        string JoinWith();
+        string JoinWith(string joiner);
     }
 }

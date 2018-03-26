@@ -7,7 +7,8 @@
 
     public class ChangePathAbsoluteCommand : Command
     {
-        public ChangePathAbsoluteCommand(string input, string[] data, IContentComparer tester, IDatabase repository, IDirectoryManager manager) 
+        public ChangePathAbsoluteCommand(string input, string[] data, IContentComparer tester, IDatabase repository,
+            IDirectoryManager manager)
             : base(input, data, tester, repository, manager)
         {
         }

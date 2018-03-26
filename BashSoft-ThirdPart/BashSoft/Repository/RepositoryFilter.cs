@@ -28,7 +28,8 @@
             }
         }
 
-        private void FilterAndTake(Dictionary<string, double> studentsWithMarks, Predicate<double> givenFilter, int studentsToTake)
+        private void FilterAndTake(Dictionary<string, double> studentsWithMarks, Predicate<double> givenFilter,
+            int studentsToTake)
         {
             int counter = 0;
             foreach (KeyValuePair<string, double> studentMark in studentsWithMarks)

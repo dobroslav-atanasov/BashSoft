@@ -70,7 +70,7 @@
 
         public static void PrintStudent(KeyValuePair<string, double> student)
         {
-            OutputWriter.WriteMessageOnNewLine($"{student.Key} - {student.Value:F2}");
+            OutputWriter.DisplayStudentMessage($"{student.Key} - {student.Value:F2}");
         }
     }
 }

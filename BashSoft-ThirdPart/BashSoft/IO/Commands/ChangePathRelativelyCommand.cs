@@ -7,7 +7,8 @@
 
     public class ChangePathRelativelyCommand : Command
     {
-        public ChangePathRelativelyCommand(string input, string[] data, IContentComparer tester, IDatabase repository, IDirectoryManager manager) 
+        public ChangePathRelativelyCommand(string input, string[] data, IContentComparer tester, IDatabase repository,
+            IDirectoryManager manager)
             : base(input, data, tester, repository, manager)
         {
         }
@@ -17,7 +18,6 @@
             if (this.Data.Length != 2)
             {
                 throw new InvalidCommandException(this.Input);
-
             }
 
             string relativePath = this.Data[1];

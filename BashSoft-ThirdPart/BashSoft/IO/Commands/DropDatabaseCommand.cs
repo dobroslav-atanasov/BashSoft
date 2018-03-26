@@ -7,7 +7,8 @@
 
     public class DropDatabaseCommand : Command
     {
-        public DropDatabaseCommand(string input, string[] data, IContentComparer tester, IDatabase repository, IDirectoryManager manager)
+        public DropDatabaseCommand(string input, string[] data, IContentComparer tester, IDatabase repository,
+            IDirectoryManager manager)
             : base(input, data, tester, repository, manager)
         {
         }

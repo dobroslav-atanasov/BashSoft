@@ -4,7 +4,8 @@
 
     public class InvalidStudentSorterException : Exception
     {
-        private const string InvalidStudentSorter = "The given sorter is not one of the following: ascending/descending";
+        private const string InvalidStudentSorter =
+            "The given sorter is not one of the following: ascending/descending";
 
         public InvalidStudentSorterException()
             : base(InvalidStudentSorter)

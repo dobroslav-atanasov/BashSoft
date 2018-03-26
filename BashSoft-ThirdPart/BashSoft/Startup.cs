@@ -16,7 +16,7 @@
             IDatabase repository = new StudentRepository(filter, sorter);
             IInterpreter interpreter = new CommandInterpreter(tester, repository, manager);
             IReader reader = new InputReader(interpreter);
-            
+
             reader.StartReadingCommands();
         }
     }

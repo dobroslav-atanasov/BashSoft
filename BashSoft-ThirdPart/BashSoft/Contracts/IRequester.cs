@@ -8,10 +8,6 @@
 
         void GetAllStudentsFromCourse(string courseName);
 
-        void GetAllCourses();
-
-        void GetAllStudents();
-
         ISimpleOrderedBag<ICourse> GetAllCoursesSorted(IComparer<ICourse> cmp);
 
         ISimpleOrderedBag<IStudent> GetAllStudentsSorted(IComparer<IStudent> cmp);

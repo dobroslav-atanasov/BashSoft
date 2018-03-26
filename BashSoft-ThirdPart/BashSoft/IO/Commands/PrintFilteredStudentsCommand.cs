@@ -8,7 +8,8 @@
 
     public class PrintFilteredStudentsCommand : Command
     {
-        public PrintFilteredStudentsCommand(string input, string[] data, IContentComparer tester, IDatabase repository, IDirectoryManager manager) 
+        public PrintFilteredStudentsCommand(string input, string[] data, IContentComparer tester, IDatabase repository,
+            IDirectoryManager manager)
             : base(input, data, tester, repository, manager)
         {
         }

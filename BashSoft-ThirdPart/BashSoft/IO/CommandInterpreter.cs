@@ -22,7 +22,7 @@
 
         public void InterpretCommand(string input)
         {
-            string[] data = input.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] data = input.Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries);
             string commandName = data[0].ToLower();
 
             try
@@ -58,10 +58,6 @@
                     return new GetHelpCommand(input, data, this.tester, this.repository, this.manager);
                 case "show":
                     return new ShowCourseCommand(input, data, this.tester, this.repository, this.manager);
-                case "showac":
-                    return new ShowAllCoursesCommand(input, data, this.tester, this.repository, this.manager);
-                case "showas":
-                    return new ShowAllStudentsCommand(input, data, this.tester, this.repository, this.manager);
                 case "filter":
                     return new PrintFilteredStudentsCommand(input, data, this.tester, this.repository, this.manager);
                 case "order":

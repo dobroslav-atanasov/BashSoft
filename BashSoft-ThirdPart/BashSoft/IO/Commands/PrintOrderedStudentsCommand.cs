@@ -8,7 +8,8 @@
 
     public class PrintOrderedStudentsCommand : Command
     {
-        public PrintOrderedStudentsCommand(string input, string[] data, IContentComparer tester, IDatabase repository, IDirectoryManager manager) 
+        public PrintOrderedStudentsCommand(string input, string[] data, IContentComparer tester, IDatabase repository,
+            IDirectoryManager manager)
             : base(input, data, tester, repository, manager)
         {
         }

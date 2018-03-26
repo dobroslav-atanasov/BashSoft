@@ -9,7 +9,8 @@
 
     public class OpenFileCommand : Command
     {
-        public OpenFileCommand(string input, string[] data, IContentComparer tester, IDatabase repository, IDirectoryManager manager)
+        public OpenFileCommand(string input, string[] data, IContentComparer tester, IDatabase repository,
+            IDirectoryManager manager)
             : base(input, data, tester, repository, manager)
         {
         }

@@ -32,7 +32,7 @@
             {
                 throw new DataException("Data is already initialized!");
             }
-            
+
             OutputWriter.DisplayWaitingMessage("Reading data...");
             this.courses = new Dictionary<string, ICourse>();
             this.students = new Dictionary<string, IStudent>();
@@ -66,12 +66,13 @@
                     {
                         Match match = Regex.Match(allInputLines[i], pattern);
                         string courseName = match.Groups[1].Value;
-                        string username= match.Groups[2].Value;
+                        string username = match.Groups[2].Value;
                         string scoresString = match.Groups[3].Value;
 
                         try
                         {
-                            int[] scores = scoresString.Split(new []{' '}, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
+                            int[] scores = scoresString.Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries)
+                                .Select(int.Parse).ToArray();
 
                             if (scores.Any(s => s > 100 || s < 0))
                             {
@@ -137,7 +138,8 @@
 
         private bool IsQueryForStudentPossible(string courseName, string studentName)
         {
-            if (this.IsQueryForCoursePossible(courseName) && this.courses[courseName].StudentsByName.ContainsKey(studentName))
+            if (this.IsQueryForCoursePossible(courseName) &&
+                this.courses[courseName].StudentsByName.ContainsKey(studentName))
             {
                 return true;
             }
@@ -164,7 +166,8 @@
         {
             if (this.IsQueryForStudentPossible(courseName, studentName))
             {
-                OutputWriter.PrintStudent(new KeyValuePair<string, double>(studentName, this.courses[courseName].StudentsByName[studentName].MarksByCourseName[courseName]));
+                OutputWriter.PrintStudent(new KeyValuePair<string, double>(studentName,
+                    this.courses[courseName].StudentsByName[studentName].MarksByCourseName[courseName]));
             }
         }
 
@@ -197,43 +200,6 @@
                     .ToDictionary(st => st.Key, st => st.Value.MarksByCourseName[courseName]);
 
                 this.sorter.OrderAndTake(marks, comparison, studentsToTake.Value);
-            }
-        }
-
-        public void GetAllCourses()
-        {
-            if (!this.isDataInitialized)
-            {
-                throw new DataException();
-            }
-
-            OutputWriter.DisplayCourseMessage($"Number of courses: {this.courses.Count}");
-            foreach (KeyValuePair<string, ICourse> course in this.courses.OrderBy(c => c.Value.Name))
-            {
-                OutputWriter.DisplayCourseMessage(course.Value.Name);
-            }
-        }
-
-        public void GetAllStudents()
-        {
-            if (!this.isDataInitialized)
-            {
-                throw new DataException();
-            }
-
-            Dictionary<string, IStudent> allStudents = new Dictionary<string, IStudent>();
-            foreach (KeyValuePair<string, ICourse> course in this.courses)
-            {
-                foreach (KeyValuePair<string, IStudent> student in course.Value.StudentsByName)
-                {
-                    allStudents.Add(student.Key, student.Value);
-                }
-            }
-
-            OutputWriter.DisplayCourseMessage($"Number of students: {allStudents.Count}");
-            foreach (KeyValuePair<string, IStudent> student in allStudents.OrderByDescending(s => s.Value.MarksByCourseName.Average(m => m.Value)))
-            {
-                OutputWriter.DisplayStudentMessage($"{student.Value.Username} - {student.Value.MarksByCourseName.Average(s => s.Value):F2}" );
             }
         }
 

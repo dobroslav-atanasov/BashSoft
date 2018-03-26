@@ -10,7 +10,7 @@
         private string username;
         private Dictionary<string, ICourse> enrolledCourses;
         private Dictionary<string, double> marksByCourseName;
-        
+
         public Student(string username)
         {
             this.Username = username;

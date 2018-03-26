@@ -7,7 +7,8 @@
 
     public class ReadDatabaseCommand : Command
     {
-        public ReadDatabaseCommand(string input, string[] data, IContentComparer tester, IDatabase repository, IDirectoryManager manager) 
+        public ReadDatabaseCommand(string input, string[] data, IContentComparer tester, IDatabase repository,
+            IDirectoryManager manager)
             : base(input, data, tester, repository, manager)
         {
         }

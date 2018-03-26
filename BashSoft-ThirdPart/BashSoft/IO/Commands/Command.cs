@@ -14,7 +14,8 @@
         private IDatabase repository;
         private IDirectoryManager manager;
 
-        protected Command(string input, string[] data, IContentComparer tester, IDatabase repository, IDirectoryManager manager)
+        protected Command(string input, string[] data, IContentComparer tester, IDatabase repository,
+            IDirectoryManager manager)
         {
             this.Input = input;
             this.Data = data;

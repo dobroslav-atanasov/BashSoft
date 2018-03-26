@@ -7,7 +7,8 @@
 
     public class DisplayCommand : Command
     {
-        public DisplayCommand(string input, string[] data, IContentComparer tester, IDatabase repository, IDirectoryManager manager)
+        public DisplayCommand(string input, string[] data, IContentComparer tester, IDatabase repository,
+            IDirectoryManager manager)
             : base(input, data, tester, repository, manager)
         {
         }
@@ -27,12 +28,12 @@
                 case "students":
                     IComparer<IStudent> studentComparator = this.CreateStudentComparator(sortType);
                     ISimpleOrderedBag<IStudent> studentList = this.Repository.GetAllStudentsSorted(studentComparator);
-                    OutputWriter.DisplayStudentMessage(studentList.JoinWith());
+                    OutputWriter.DisplayStudentMessage(studentList.JoinWith(Environment.NewLine));
                     break;
                 case "courses":
                     IComparer<ICourse> courseComparator = this.CreateCourseComparator(sortType);
                     ISimpleOrderedBag<ICourse> courseList = this.Repository.GetAllCoursesSorted(courseComparator);
-                    OutputWriter.DisplayCourseMessage(courseList.JoinWith());
+                    OutputWriter.DisplayCourseMessage(courseList.JoinWith(Environment.NewLine));
                     break;
                 default:
                     throw new InvalidCommandException(this.Input);
@@ -44,9 +45,11 @@
             switch (sortType)
             {
                 case "ascending":
-                    return Comparer<IStudent>.Create((firstStudent, secondStudent) => firstStudent.CompareTo(secondStudent));
+                    return Comparer<IStudent>.Create((firstStudent, secondStudent) =>
+                        firstStudent.CompareTo(secondStudent));
                 case "descending":
-                    return Comparer<IStudent>.Create((firstStudent, secondStudent) => secondStudent.CompareTo(firstStudent));
+                    return Comparer<IStudent>.Create((firstStudent, secondStudent) =>
+                        secondStudent.CompareTo(firstStudent));
                 default:
                     throw new InvalidCommandException(this.Input);
             }

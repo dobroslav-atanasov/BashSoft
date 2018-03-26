@@ -7,7 +7,8 @@
 
     public class CompareFilesCommand : Command
     {
-        public CompareFilesCommand(string input, string[] data, IContentComparer tester, IDatabase repository, IDirectoryManager manager) 
+        public CompareFilesCommand(string input, string[] data, IContentComparer tester, IDatabase repository,
+            IDirectoryManager manager)
             : base(input, data, tester, repository, manager)
         {
         }
@@ -17,7 +18,6 @@
             if (this.Data.Length != 3)
             {
                 throw new InvalidCommandException(this.Input);
-                
             }
 
             string firstPath = this.Data[1];

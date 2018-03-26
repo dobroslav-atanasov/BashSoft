@@ -47,7 +47,8 @@
             OutputWriter.DisplaySuccessfulMessage("Files are identical. There are no mismatches.");
         }
 
-        private string[] GetLinesWithPossibleMismatches(string[] actualOutputLines, string[] expectedOutputLines, out bool hasMismatch)
+        private string[] GetLinesWithPossibleMismatches(string[] actualOutputLines, string[] expectedOutputLines,
+            out bool hasMismatch)
         {
             hasMismatch = false;
             string output = string.Empty;
