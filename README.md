@@ -20,4 +20,9 @@ The BashSoft project consists of three parts
 
 ## [BashSoft - Third Part](https://github.com/dobroslav-atanasov/BashSoft/tree/master/BashSoft-ThirdPart)
 
+1. Interfaces and Abstraction
+2. Generics, Iterators and Comparators
+3. Reflection and Attributes
+4. Unit Testing
+
 ## [Resources](https://github.com/dobroslav-atanasov/BashSoft/tree/master/Resources)
