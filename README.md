@@ -1,13 +1,11 @@
 # BashSoft
-The BashSoft project consists of three parts. The project it has to be with some special functions, in order to be adapted for the needs of SoftUni. 
+The BashSoft project is console application. The project consists of three parts and following all SOLID principles. The project it has to be with some special functions, in order to be adapted for the needs of SoftUni. 
 
 The project has the following functions:
-- 'cdabs' - Change the absolute path
-
-
-> BashSoft - First Part
-
-
+- `cdabs` - Changes the absolute path
+- `cdrel` - Changes the relative path
+- `cmp` - Compares two files
+- `display` - Prints on the console all courses/students in ascending/descending order
 
 
 ## [BashSoft - First Part](https://github.com/dobroslav-atanasov/BashSoft/tree/master/BashSoft-FirstPart)
