@@ -3,25 +3,16 @@
     using System;
     using Contracts;
     using Exceptions;
-    using Judge;
-    using Repository;
 
     public abstract class Command : IExecutable
     {
         private string input;
         private string[] data;
-        private IContentComparer tester;
-        private IDatabase repository;
-        private IDirectoryManager manager;
 
-        protected Command(string input, string[] data, IContentComparer tester, IDatabase repository,
-            IDirectoryManager manager)
+        protected Command(string input, string[] data)
         {
             this.Input = input;
             this.Data = data;
-            this.tester = tester;
-            this.repository = repository;
-            this.manager = manager;
         }
 
         protected string Input
@@ -48,21 +39,6 @@
                 }
                 this.data = value;
             }
-        }
-
-        protected IContentComparer Tester
-        {
-            get { return this.tester; }
-        }
-
-        protected IDatabase Repository
-        {
-            get { return this.repository; }
-        }
-
-        protected IDirectoryManager Manager
-        {
-            get { return this.manager; }
         }
 
         public abstract void Execute();

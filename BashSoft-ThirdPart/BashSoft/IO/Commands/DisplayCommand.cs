@@ -2,14 +2,18 @@
 {
     using System;
     using System.Collections.Generic;
+    using Attributes;
     using Contracts;
     using Exceptions;
 
+    [Alias("display")]
     public class DisplayCommand : Command
     {
-        public DisplayCommand(string input, string[] data, IContentComparer tester, IDatabase repository,
-            IDirectoryManager manager)
-            : base(input, data, tester, repository, manager)
+        [Inject]
+        private IDatabase repository;
+
+        public DisplayCommand(string input, string[] data)
+            : base(input, data)
         {
         }
 
@@ -27,12 +31,12 @@
             {
                 case "students":
                     IComparer<IStudent> studentComparator = this.CreateStudentComparator(sortType);
-                    ISimpleOrderedBag<IStudent> studentList = this.Repository.GetAllStudentsSorted(studentComparator);
+                    ISimpleOrderedBag<IStudent> studentList = this.repository.GetAllStudentsSorted(studentComparator);
                     OutputWriter.DisplayStudentMessage(studentList.JoinWith(Environment.NewLine));
                     break;
                 case "courses":
                     IComparer<ICourse> courseComparator = this.CreateCourseComparator(sortType);
-                    ISimpleOrderedBag<ICourse> courseList = this.Repository.GetAllCoursesSorted(courseComparator);
+                    ISimpleOrderedBag<ICourse> courseList = this.repository.GetAllCoursesSorted(courseComparator);
                     OutputWriter.DisplayCourseMessage(courseList.JoinWith(Environment.NewLine));
                     break;
                 default:

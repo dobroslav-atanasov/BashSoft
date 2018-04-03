@@ -1,15 +1,17 @@
 ﻿namespace BashSoft.IO.Commands
 {
+    using Attributes;
     using Contracts;
     using Exceptions;
-    using Judge;
-    using Repository;
 
+    [Alias("dropdb")]
     public class DropDatabaseCommand : Command
     {
-        public DropDatabaseCommand(string input, string[] data, IContentComparer tester, IDatabase repository,
-            IDirectoryManager manager)
-            : base(input, data, tester, repository, manager)
+        [Inject]
+        private IDatabase repository;
+
+        public DropDatabaseCommand(string input, string[] data)
+            : base(input, data)
         {
         }
 
@@ -20,7 +22,7 @@
                 throw new InvalidCommandException(this.Input);
             }
 
-            this.Repository.UnloadData();
+            this.repository.UnloadData();
             OutputWriter.DisplaySuccessfulMessage("Database dropped!");
         }
     }

@@ -1,6 +1,9 @@
 ﻿namespace BashSoft.IO
 {
     using System;
+    using System.Linq;
+    using System.Reflection;
+    using Attributes;
     using Commands;
     using Contracts;
     using Exceptions;
@@ -22,7 +25,7 @@
 
         public void InterpretCommand(string input)
         {
-            string[] data = input.Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries);
+            string[] data = input.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
             string commandName = data[0].ToLower();
 
             try
@@ -38,37 +41,32 @@
 
         private IExecutable ParseCommand(string input, string command, string[] data)
         {
-            switch (command)
+            object[] parametersForConstruction = new object[] { input, data };
+
+            Type typeOfCommand = Assembly.GetExecutingAssembly()
+                .GetTypes()
+                .First(t => t.GetCustomAttributes(typeof(AliasAttribute)).Where(a => a.Equals(command)).ToArray().Length > 0);
+
+            Type typeOfInterpreter = typeof(CommandInterpreter);
+
+            Command instance = (Command)Activator.CreateInstance(typeOfCommand, parametersForConstruction);
+
+            FieldInfo[] fieldsOfCommand = typeOfCommand.GetFields(BindingFlags.Instance | BindingFlags.NonPublic);
+            FieldInfo[] fieldsOfInterpreter = typeOfInterpreter.GetFields(BindingFlags.Instance | BindingFlags.NonPublic);
+
+            foreach (FieldInfo commandField in fieldsOfCommand)
             {
-                case "open":
-                    return new OpenFileCommand(input, data, this.tester, this.repository, this.manager);
-                case "mkdir":
-                    return new MakeDirectoryCommand(input, data, this.tester, this.repository, this.manager);
-                case "ls":
-                    return new TraverseFoldersCommand(input, data, this.tester, this.repository, this.manager);
-                case "cmp":
-                    return new CompareFilesCommand(input, data, this.tester, this.repository, this.manager);
-                case "cdrel":
-                    return new ChangePathRelativelyCommand(input, data, this.tester, this.repository, this.manager);
-                case "cdabs":
-                    return new ChangePathAbsoluteCommand(input, data, this.tester, this.repository, this.manager);
-                case "readdb":
-                    return new ReadDatabaseCommand(input, data, this.tester, this.repository, this.manager);
-                case "help":
-                    return new GetHelpCommand(input, data, this.tester, this.repository, this.manager);
-                case "show":
-                    return new ShowCourseCommand(input, data, this.tester, this.repository, this.manager);
-                case "filter":
-                    return new PrintFilteredStudentsCommand(input, data, this.tester, this.repository, this.manager);
-                case "order":
-                    return new PrintOrderedStudentsCommand(input, data, this.tester, this.repository, this.manager);
-                case "dropdb":
-                    return new DropDatabaseCommand(input, data, this.tester, this.repository, this.manager);
-                case "display":
-                    return new DisplayCommand(input, data, this.tester, this.repository, this.manager);
-                default:
-                    throw new InvalidCommandException(input);
+                Attribute attribute = commandField.GetCustomAttribute(typeof(InjectAttribute));
+                if (attribute != null)
+                {
+                    if (fieldsOfInterpreter.Any(f => f.FieldType == commandField.FieldType))
+                    {
+                        commandField.SetValue(instance, fieldsOfInterpreter.First(f => f.FieldType == commandField.FieldType).GetValue(this));
+                    }
+                }
             }
+
+            return instance;
         }
     }
 }
