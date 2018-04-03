@@ -17,7 +17,7 @@ The project has the following functions:
 - `readdb` - Reads database
 - `show` - Shows all students in course
 
-## [BashSoft - First Part](https://github.com/dobroslav-atanasov/BashSoft/tree/master/BashSoft-FirstPart)
+## [BashSoft - First Part](https://github.com/dobroslav-atanasov/BashSoft/tree/master/BashSoft-FirstPart) 
 
 1. Creating the Basic Functionality
 2. Creating the Data Structure
