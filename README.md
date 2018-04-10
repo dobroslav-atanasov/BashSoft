@@ -17,6 +17,20 @@ The project has the following functions:
 - `readdb` - Reads database
 - `show` - Shows all students in course
 
+## Content of the project:
+- [X] Creating the Basic Functionality
+- [X] Creating the Data Structure
+- [X] Exception Handling
+- [X] Implementing the command interpreter
+- [X] Regular Expressions
+- [X] Functional Programming
+- [X] LINQ
+
+2.1 Defining Classes and Methods
+2.2 Encapsulation
+2.3 Inheritance
+2.4 Polymorphism
+
 ## [BashSoft - First Part](https://github.com/dobroslav-atanasov/BashSoft/tree/master/BashSoft-FirstPart) 
 
 1. Creating the Basic Functionality
