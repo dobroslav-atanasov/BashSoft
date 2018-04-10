@@ -18,6 +18,9 @@ The project has the following functions:
 - `show` - Shows all students in course
 
 ## Content of the project:
+
+### First Part
+
 - [X] Creating the Basic Functionality
 - [X] Creating the Data Structure
 - [X] Exception Handling
@@ -26,34 +29,24 @@ The project has the following functions:
 - [X] Functional Programming
 - [X] LINQ
 
-2.1 Defining Classes and Methods
-2.2 Encapsulation
-2.3 Inheritance
-2.4 Polymorphism
+### Second Part
+
+- [X] Defining Classes and Methods
+- [X] Encapsulation
+- [X] Inheritance
+- [X] Polymorphism
+
+### Third Part
+
+- [X] Interfaces and Abstraction
+- [X] Generics, Iterators and Comparators
+- [X] Reflection and Attributes
+- [ ] Unit Testing
 
 ## [BashSoft - First Part](https://github.com/dobroslav-atanasov/BashSoft/tree/master/BashSoft-FirstPart) 
 
-1. Creating the Basic Functionality
-2. Creating the Data Structure
-3. Exception Handling
-4. Implementing the command interpreter
-5. Regular Expressions
-6. Functional Programming
-7. LINQ
-
 ## [BashSoft - Second Part](https://github.com/dobroslav-atanasov/BashSoft/tree/master/BashSoft-SecondPart)
 
-1. Defining Classes and Methods
-2. Encapsulation
-3. Inheritance
-4. Polymorphism
-
 ## [BashSoft - Third Part](https://github.com/dobroslav-atanasov/BashSoft/tree/master/BashSoft-ThirdPart)
-
-1. Interfaces and Abstraction
-2. Generics, Iterators and Comparators
-3. Reflection and Attributes
-4. Unit Testing
-
 
 ## [Resources](https://github.com/dobroslav-atanasov/BashSoft/tree/master/Resources)
