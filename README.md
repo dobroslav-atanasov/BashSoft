@@ -43,10 +43,8 @@ The project has the following functions:
 - [X] Reflection and Attributes
 - [ ] Unit Testing
 
-## [BashSoft - First Part](https://github.com/dobroslav-atanasov/BashSoft/tree/master/BashSoft-FirstPart) 
-
-## [BashSoft - Second Part](https://github.com/dobroslav-atanasov/BashSoft/tree/master/BashSoft-SecondPart)
-
-## [BashSoft - Third Part](https://github.com/dobroslav-atanasov/BashSoft/tree/master/BashSoft-ThirdPart)
-
-## [Resources](https://github.com/dobroslav-atanasov/BashSoft/tree/master/Resources)
+BashSoft			|Descriptions																				|Solutions
+:------------------:|:-----------------------------------------------------------------------------------------:|:----------:
+First Part			|[Description](https://github.com/dobroslav-atanasov/BashSoft/tree/master/Resources)		|[Solution](https://github.com/dobroslav-atanasov/BashSoft/tree/master/BashSoft-FirstPart	)
+Second Part			|[Description](https://github.com/dobroslav-atanasov/BashSoft/tree/master/Resources)		|[Solution](https://github.com/dobroslav-atanasov/BashSoft/tree/master/BashSoft-SecondPart)
+Third Part			|[Description](https://github.com/dobroslav-atanasov/BashSoft/tree/master/Resources)		|[Solution](https://github.com/dobroslav-atanasov/BashSoft/tree/master/BashSoft-ThirdPart)
