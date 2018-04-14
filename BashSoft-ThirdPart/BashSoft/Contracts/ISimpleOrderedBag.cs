@@ -13,5 +13,11 @@
         int Size { get; }
 
         string JoinWith(string joiner);
+
+        bool Remove(T item);
+
+        int Capacity { get; }
+
+        T this[int index] { get; }
     }
 }
