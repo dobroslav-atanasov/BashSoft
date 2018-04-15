@@ -41,7 +41,7 @@ The project has the following functions:
 - [X] Interfaces and Abstraction
 - [X] Generics, Iterators and Comparators
 - [X] Reflection and Attributes
-- [ ] Unit Testing
+- [X] Unit Testing
 
 BashSoft			|Descriptions																				|Solutions																						|Progress	
 :------------------:|:-----------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------:|:-------------:
