@@ -43,8 +43,8 @@ The project has the following functions:
 - [X] Reflection and Attributes
 - [ ] Unit Testing
 
-BashSoft			|Descriptions																				|Solutions
-:------------------:|:-----------------------------------------------------------------------------------------:|:----------:
-First Part			|[Description](https://github.com/dobroslav-atanasov/BashSoft/tree/master/Resources)		|[Solution](https://github.com/dobroslav-atanasov/BashSoft/tree/master/BashSoft-FirstPart	)
-Second Part			|[Description](https://github.com/dobroslav-atanasov/BashSoft/tree/master/Resources)		|[Solution](https://github.com/dobroslav-atanasov/BashSoft/tree/master/BashSoft-SecondPart)
-Third Part			|[Description](https://github.com/dobroslav-atanasov/BashSoft/tree/master/Resources)		|[Solution](https://github.com/dobroslav-atanasov/BashSoft/tree/master/BashSoft-ThirdPart)
+BashSoft			|Descriptions																				|Solutions																						|Progress	
+:------------------:|:-----------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------:|:-------------:
+First Part			|[Description](https://github.com/dobroslav-atanasov/BashSoft/tree/master/Resources)		|[Solution](https://github.com/dobroslav-atanasov/BashSoft/tree/master/BashSoft-FirstPart)		|![Progress](http://progressed.io/bar/100?title=completed)
+Second Part			|[Description](https://github.com/dobroslav-atanasov/BashSoft/tree/master/Resources)		|[Solution](https://github.com/dobroslav-atanasov/BashSoft/tree/master/BashSoft-SecondPart)		|![Progress](http://progressed.io/bar/100?title=completed)
+Third Part			|[Description](https://github.com/dobroslav-atanasov/BashSoft/tree/master/Resources)		|[Solution](https://github.com/dobroslav-atanasov/BashSoft/tree/master/BashSoft-ThirdPart)		|![Progress](http://progressed.io/bar/100?title=completed)
