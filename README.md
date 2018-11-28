@@ -21,7 +21,7 @@ The project has the following functions:
 
 ### First Part
 
-- [] Creating the Basic Functionality
+- [X] Creating the Basic Functionality
 - [X] Creating the Data Structure
 - [X] Exception Handling
 - [X] Implementing the command interpreter
